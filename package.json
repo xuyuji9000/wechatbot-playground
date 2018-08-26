@@ -1,0 +1,23 @@
+{
+  "name": "wechatbot-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "wechaty": "^0.20.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyuji9000/wechatbot-playground.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xuyuji9000/wechatbot-playground/issues"
+  },
+  "homepage": "https://github.com/xuyuji9000/wechatbot-playground#readme"
+}
