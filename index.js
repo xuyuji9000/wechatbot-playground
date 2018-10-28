@@ -1,8 +1,12 @@
 const { Wechaty, Room } = require('wechaty') // import { Wechaty } from 'wechaty'
 const express = require('express')
+const TOPIC = "family 家"
+
 
 var bot = Wechaty.instance() // Global Instance
-    .on('scan', (qrcode, status) => console.log(`Scan QR Code to login: ${status}\nhttps://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrcode)}`))
+    .on('scan', (qrcode, status) => {
+        console.log(`Scan QR Code to login: ${status}\nhttps://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrcode)}`)
+    })
     .on('login',            user => console.log(`User ${user} logined`))
     .on('message',       message => console.log(`Message: ${message}`))
     .on('message', async message => {
@@ -11,7 +15,7 @@ var bot = Wechaty.instance() // Global Instance
         const topic = await room.topic()
         console.log(topic)
         console.log(message.text())
-        if("Coderbunker DevOps Team" == topic && "test" == message.text()) {
+        if(TOPIC == topic && "test" == message.text()) {
             message.room().say("Bot responding.")
         }
     })
@@ -22,7 +26,7 @@ var app = express()
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function (req, res) {
-    bot.Room.find({topic: "Coderbunker DevOps Team"})
+    bot.Room.find({topic: TOPIC})
         .then(function(room) {
             if(room) {
               room.say('endpoint called')
