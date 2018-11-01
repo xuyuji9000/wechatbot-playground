@@ -1,5 +1,9 @@
 const { Wechaty, Room } = require('wechaty') // import { Wechaty } from 'wechaty'
 const express = require('express')
+const bodyParser = require('body-parser')
+
+
+
 const TOPIC = "family 家"
 
 
@@ -23,21 +27,24 @@ var bot = Wechaty.instance() // Global Instance
 bot.start()
 
 var app = express()
+app.use(bodyParser.json()) // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })) // support encoded bodies
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get('/', function (req, res) {
+app.post('/', function (req, res) {
     bot.Room.find({topic: TOPIC})
-        .then(function(room) {
-            if(room) {
-              room.say('endpoint called')
-              res.send('room notified')
-            } else {
-              res.send('cannot find room')
-            }
-        })
-        .catch(function(err) {
-            res.send(`error ${err}`)
-        })
+    .then(function(room) {
+        if(room) {
+          console.log(req.body)
+          room.say('endpoint called')
+          res.send('room notified')
+        } else {
+          res.send('cannot find room')
+        }
+    })
+    .catch(function(err) {
+        res.send(`error ${err}`)
+    })
 
 })
 
